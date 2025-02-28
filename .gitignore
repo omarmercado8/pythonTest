@@ -179,3 +179,4 @@ $RECYCLE.BIN/
 *.log
 
 database.sqlite
+/env1

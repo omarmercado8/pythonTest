@@ -1,26 +1,40 @@
 import sqlite3 as db
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
-con = db.connect('/home/omar/Downloads/database.sqlite')
+
+con = db.connect('/Users/mmmerca/Downloads/database.sqlite')
 
 df = pd.read_sql("select * from Player",con)
-print(df.head().describe())
-print(df.head().describe().T)
-
-df2 = df.head().describe().T
-print(df.info(show_counts=True))
-df2.to_csv("/home/omar/Desktop/data_fut.txt",sep=",", index=False)
-
-print(df.shape)
-
 print(df.columns)
 
-df3=df.copy()
+print(df.head(5))
 
-print(df3.describe)
-df3.loc[100:104,'player_name']=None
+jugadores = df.head(5)
 
-print(df3.info())
+print(jugadores)
+print(jugadores['height']< 180)
 
-print(df3.isnull())
+jugadores_chaparros = jugadores[jugadores['height']< 180]
+
+jugadores_altos = jugadores[jugadores['height']>= 180]
+
+print("chaparros  ---------------------------------------------")
+print(jugadores_chaparros)
+
+print("altos  ---------------------------------------------")
+print(jugadores_altos)
+
+print('group by-------------------------------------------')
+print((jugadores.groupby('height').get_group(182.88)))
+print(jugadores["weight"])
+
+
+fig, ax = plt.subplots()             # Create a figure containing a single Axes.
+ax.plot(jugadores["weight"], jugadores["height"])  # Plot some data on the Axes.
+plt.show()
+
+
+Grafica de altura mas alta por equipo
+Grafic de peso mas alto por pais
